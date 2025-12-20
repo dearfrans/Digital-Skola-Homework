@@ -1,0 +1,18 @@
+{
+  "name": "tugas-ke-7---api-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "mocha tests --timeout 10000"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "chai": "^6.2.1",
+    "mocha": "^11.7.5"
+  }
+}

@@ -3,7 +3,6 @@ const Ajv = require("ajv");
 
 const ajv = new Ajv({ allErrors: true });
 const BASE_URL = "https://belajar-bareng.onrender.com/api";
-let globalToken;
 
 // JSON Schema untuk response login (positive case)
 const loginSchema = {
@@ -16,17 +15,15 @@ const loginSchema = {
   required: ["status", "token", "message"],
 };
 
-describe("API Automation Project - Belajar Bareng", function () {
+describe("POST /login", function () {
 
   // =========================
-  // 1. POST Login - Positive
+  // Positive Case
   // =========================
-  it("POST Login - Positive Case", async function () {
+  it("Login Successful (Positive Case)", async function () {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: "admin",
         password: "admin",
@@ -34,7 +31,6 @@ describe("API Automation Project - Belajar Bareng", function () {
     });
 
     const data = await response.json();
-    globalToken = data.token;
 
     // Assert 1: Status Code
     expect(response.status).to.equal(200);
@@ -44,22 +40,20 @@ describe("API Automation Project - Belajar Bareng", function () {
     const isValid = validate(data);
     expect(
       isValid,
-      `Schema validation error: ${JSON.stringify(validate.errors)}`
+      `Schema error: ${JSON.stringify(validate.errors)}`
     ).to.be.true;
 
-    // Additional Assert
+    // Assert tambahan
     expect(data.message).to.equal("Login successful");
   });
 
   // =========================
-  // 2. POST Login - Negative
+  // Negative Case
   // =========================
-  it("POST Login - Negative Case (Wrong Password)", async function () {
+  it("Login Failed - Wrong Password (Negative Case)", async function () {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: "admin",
         password: "password_salah",
@@ -68,34 +62,12 @@ describe("API Automation Project - Belajar Bareng", function () {
 
     const data = await response.json();
 
-    // Assert 1: Status Code (tidak boleh 200)
+    // Assert 1: Status Code
     expect(response.status).to.not.equal(200);
 
     // Assert 2: Response Body
     expect(data).to.have.property("message");
     expect(data.message).to.not.equal("Login successful");
-  });
-
-  // =========================
-  // 3. GET List Users
-  // =========================
-  it("GET List Users", async function () {
-    const response = await fetch(`${BASE_URL}/users`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${globalToken}`,
-      },
-    });
-
-    const data = await response.json();
-
-    // Assert 1: Status Code
-    expect(response.status).to.equal(200);
-
-    // Assert 2: Response Body
-    expect(data).to.have.property("users");
-    expect(data.users).to.be.an("array");
   });
 
 });

@@ -1,0 +1,18 @@
+{
+  "name": "homework-sesi-9---web-ui-automation-fundamental",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "mocha testingwebauto/login.sort.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "chai": "^6.2.2",
+    "mocha": "^11.7.5",
+    "selenium-webdriver": "^4.39.0"
+  }
+}

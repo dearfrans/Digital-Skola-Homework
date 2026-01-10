@@ -6,18 +6,16 @@ exports.config = {
     ],
     capabilities: [{
         platformName: 'Android',
-        'appium:platformVersion': '16.0', // Pastikan versi Android di emulator sesuai
+        'appium:platformVersion': '16.0',
         'appium:deviceName': 'emulator-5554',
         'appium:automationName': 'UiAutomator2',
         'appium:app': 'C:\\Users\\Asus\\Downloads\\ApiDemos-debug.apk',
-        
-        // --- REVISI STABILITAS ---
-        'appium:noReset': false,          // Diubah ke false agar session selalu bersih (mencegah crash)
+        'appium:noReset': false,
         'appium:fullReset': false,
-        'appium:appWaitActivity': '*',    // Menunggu activity aplikasi stabil sebelum mulai
-        'appium:newCommandTimeout': 300,  // Memberi waktu lebih lama sebelum session timeout
-        'appium:adbExecTimeout': 60000,   // Menambah waktu eksekusi perintah ADB
-        'appium:uiautomator2ServerInstallTimeout': 60000 // Menambah waktu instalasi driver
+        'appium:appWaitActivity': '*',
+        'appium:newCommandTimeout': 300,
+        'appium:adbExecTimeout': 60000,
+        'appium:uiautomator2ServerInstallTimeout': 60000
     }],
     logLevel: 'info',
     framework: 'mocha',
@@ -28,7 +26,7 @@ exports.config = {
     }]],
     mochaOpts: {
         ui: 'bdd',
-        timeout: 120000 // Ditambah ke 120 detik karena proses mobile testing butuh waktu lebih lama
+        timeout: 120000
     },
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
         if (error) {
